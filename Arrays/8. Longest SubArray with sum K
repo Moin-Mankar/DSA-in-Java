@@ -1,0 +1,22 @@
+class Solution {
+    public int longestSubarray(int[] nums, int k) {
+        int left = 0, right = 0;
+        long sum = 0;
+        int maxLen = 0;
+
+        for(left = 0; left < nums.length; left++){
+            sum += nums[left];
+
+            while(sum > k && right <= left){
+                sum -= nums[right];
+                right++;
+            }
+
+            if(sum == k){
+                maxLen = Math.max(maxLen, left - right + 1);
+            }
+        }
+
+        return maxLen;
+    }
+}
