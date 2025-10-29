@@ -1,0 +1,25 @@
+class Solution {
+    public int findAllSubarraysWithGivenSum(int[] arr, int k) {
+        Map<Integer, Integer> mpp = new HashMap<>();
+        mpp.put(0, 1); 
+
+        int preSum = 0;
+        int cnt = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            preSum += arr[i]; 
+
+            int remove = preSum - k;
+
+            // if remove (preSum - k) exists in map, it means a subarray sum = k exists
+            if (mpp.containsKey(remove)) {
+                cnt += mpp.get(remove);
+            }
+
+            // update map with current prefix sum
+            mpp.put(preSum, mpp.getOrDefault(preSum, 0) + 1);
+        }
+
+        return cnt;
+    }
+}
