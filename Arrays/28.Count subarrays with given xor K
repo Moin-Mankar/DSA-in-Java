@@ -1,0 +1,21 @@
+class Solution {
+    public int subarraysWithXorK(int[] nums, int k) {
+      Map <Integer , Integer> mapp = new HashMap<>();
+      mapp.put(0,1);
+      int xr=0;
+      int count =0;
+
+      for(int i =0;i< nums.length;i++){
+        xr^=nums[i];
+
+        int x = xr ^ k;
+
+        if(mapp.containsKey(x)){
+            count+= mapp.get(x);
+        }
+
+        mapp.put(nums[i] , mapp.getOrDefault(nums[i],0)+1);
+      }
+      return count;
+    }
+}
