@@ -1,0 +1,16 @@
+class Solution {
+    public long floorSqrt(long n) {
+        long low = 1, high = n;
+        while (low <= high) {
+            long mid = (low + high) / 2;
+            long sq = mid * mid;
+
+            if (sq <= n) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return high;
+    }
+}
