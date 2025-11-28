@@ -1,0 +1,38 @@
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        int max= 0;
+        for(int d : bloomDay) max= Math.max(max, d);
+        int low=1,high= max;
+        int ans=-1;
+        while(low<= high){
+            int mid= (low+high)/2;
+            
+            if(bloom(bloomDay, mid, m,k)){
+                ans= mid;
+                high = mid-1;
+            }else{
+                low= mid+1;
+            }
+        }
+        return ans;
+    }
+
+
+    public boolean bloom(int [] nums , int mid , int m , int k){
+        int count= 0;
+        int flowers = 0;
+        
+        for(int num : nums){
+            if(num<= mid){
+                count++;
+                if(count == k){
+                    flowers++;
+                    count=0;
+                }
+            }else{
+                count=0;
+            }
+        }
+        return flowers>=m;
+    }
+}
