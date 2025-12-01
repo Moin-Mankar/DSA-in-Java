@@ -1,0 +1,35 @@
+class Solution {
+    public int splitArray(int[] nums, int k) {
+        int max=0, sum= 0;
+        for(int n: nums){
+            sum+= n;
+            max= Math.max(n, max);
+        }
+        int low= max, high = sum,ans= -1;
+        while(low<= high){
+            int mid = (low+ high)/2;
+            int arrays= totalarr(nums, mid);
+
+            if(arrays<=k){
+                ans=mid;
+                high = mid-1;
+            }else{
+                low= mid+1;
+            }
+        }
+        return ans;
+    }
+
+    public int totalarr(int[] nums , int k){
+        int painter=1,sum =0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]+ sum<=k){
+                sum += nums[i];
+            }else{
+                painter++;
+                sum = nums[i];
+            }
+        }
+        return painter;
+    }
+}
