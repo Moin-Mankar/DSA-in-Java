@@ -1,0 +1,49 @@
+class Solution {
+    static final int MOD = 10000003;
+
+    public int paint(int A, int B, int[] C) {
+        long max = 0, sum = 0;
+
+        for (int n : C) {
+            max = Math.max(max, n);
+            sum += n;
+        }
+
+        long low = max * B;
+        long high = sum * B;
+        long ans = high;
+
+        while (low <= high) {
+            long mid = (low + high) / 2;
+
+            if (canPaint(C, A, B, mid)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return (int)(ans % MOD);
+    }
+
+    private boolean canPaint(int[] C, int painters, int B, long maxTime) {
+        long time = 0;
+        int count = 1;
+
+        for (int len : C) {
+            long cost = (long) len * B;
+
+            if (cost > maxTime) return false;
+
+            if (time + cost <= maxTime) {
+                time += cost;
+            } else {
+                count++;
+                time = cost;
+                if (count > painters) return false;
+            }
+        }
+        return true;
+    }
+}
