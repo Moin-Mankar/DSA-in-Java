@@ -1,0 +1,45 @@
+class Solution {
+    public int findMedian(int[][] matrix) {
+        int n = matrix.length, m= matrix[0].length;
+        int low= Integer.MAX_VALUE, high= Integer.MIN_VALUE;
+        for(int i=0;i< n ;i++){
+            low = Math.min(matrix[i][0], low);
+            high= Math.max(matrix[i][m-1], high);
+        }
+        int req= (m*n)/2;
+
+      while(low<=high){
+        int mid= (low+ high)/2;
+        int smallestel= blackbox(matrix, mid, n);
+
+        if(smallestel<=req){
+            low= mid+1;
+        }else{
+            high=mid-1;;
+        }
+      }
+      return low;
+    }
+
+    public int blackbox(int[][] nums, int k,int n){
+        int count=0;
+        for(int i=0;i<n;i++){
+            count+= upperbound(nums[i],k);
+        }
+        return count;
+    }
+
+    public int upperbound(int [] nums, int k){
+        int low=0, high= nums.length-1;
+        while(low<=high){
+            int mid= (low+ high)/2;
+
+            if(nums[mid]<=k){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return low;
+    }
+}
