@@ -1,0 +1,19 @@
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+       int[] smap = new int[256];
+       int[] tmap = new int[256];
+
+       for(int i=0;i< s.length();i++){
+        char sch = s.charAt(i);
+        char tch = t.charAt(i);
+
+        if(smap[sch] != tmap[tch]){
+            return false;
+        }
+
+        smap[sch] = i+1;
+        tmap[tch]= i+1;
+       }   
+       return true;
+    }
+}
