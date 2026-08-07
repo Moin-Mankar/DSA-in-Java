@@ -1,0 +1,19 @@
+class Solution {
+    public void sortStack(Stack<Integer> st) {
+      if(!st.isEmpty()){
+        int temp = st.pop();
+        sortStack(st);
+        insert(st, temp);
+      }
+    }
+    public void insert(Stack<Integer> st , int num){
+        if(st.isEmpty() || st.peek()<= num){
+            st.push(num);
+            return;
+        }
+
+        int temp = st.pop();
+        insert(st,num);
+        st.push(temp);
+    }
+}
